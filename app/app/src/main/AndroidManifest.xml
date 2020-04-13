@@ -16,6 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Colocviu1_13SecondaryActivity">
+            <intent-filter>
+                <action android:name="ro.pub.cs.systems.eim.Colocviu1_13.intent.action.Colocviu1_13SecondaryActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -4,6 +4,11 @@
     <string name="buttonEast">EAST</string>
     <string name="buttonWest">WEST</string>
     <string name="buttonSouth">SOUTH</string>
+    <string name="buttonRegister">Register</string>
+    <string name="buttonCancel">Cancel</string>
+    <string name="error">Error</string>
     <string name="points_edit_text">North, East, South, West</string>
     <string name="buttonNavigate">Navigate to Secondary Activity</string>
+    <string name="instructions_edit_text">Current instructions</string>
+    <string name="buttonSecondaryActivity">Secondary Activity</string>
 </resources>
