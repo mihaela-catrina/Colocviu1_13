@@ -2,7 +2,9 @@ package ro.pub.cs.systems.eim.Colocviu1_13;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,11 +14,15 @@ import android.widget.Toast;
 public class Colocviu1_13MainActivity extends AppCompatActivity {
 
     private int noClicks = 0;
+    StartedServiceBroadcastReceiver broadcastReceiver = new StartedServiceBroadcastReceiver();
+    private IntentFilter intentFilter = new IntentFilter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colocviu1_13_main);
+
+        intentFilter.addAction(Constants.SERVICE_ACTION);
 
         Button northButton = (Button) findViewById(R.id.buttonNorth);
         northButton.setOnClickListener(buttonClickListener);
@@ -32,6 +38,30 @@ public class Colocviu1_13MainActivity extends AppCompatActivity {
 
         Button secondaryActivityButton = (Button) findViewById(R.id.buttonNavigate);
         secondaryActivityButton.setOnClickListener(secondaryActivityButtonClickListener);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(this, Colocviu1_13Service.class);
+        stopService(intent);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // TODO: exercise 8c - register the broadcast receiver with the corresponding intent filter
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        // TODO: exercise 8c - unregister the broadcast receiver
+        unregisterReceiver(broadcastReceiver);
+
+        super.onPause();
     }
 
     @Override
@@ -72,6 +102,13 @@ public class Colocviu1_13MainActivity extends AppCompatActivity {
                 points_edit_text.setText(String.format("%s", currentButtonName));
             else
                 points_edit_text.setText(String.format("%s, %s", currentString, currentButtonName));
+
+            if (noClicks == 4) {
+                Intent intentStartService = new Intent(getApplicationContext(), Colocviu1_13Service.class);
+                intentStartService.putExtra(Constants.SERVICE_KEY, points_edit_text.getText().toString());
+                //intentStartService.setComponent(new ComponentName(getApplicationContext(), Colocviu1_13Service.class));
+                startService(intentStartService);
+            }
 
         }
     }

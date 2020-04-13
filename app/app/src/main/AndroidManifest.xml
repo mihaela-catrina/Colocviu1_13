@@ -23,6 +23,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".Colocviu1_13Service"
+            android:exported="true"/>
     </application>
 
 </manifest>
